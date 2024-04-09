@@ -82,4 +82,4 @@ if __name__ == "__main__":
 
     fill = input("Enter the character to fill the progress bar (default is ''): ")
     main(root_folder, fill)
-    print("Program is complete. Checksums and file information are stored in the folder where the program was run.")
+    print("Program is complete. Checksums and file information are stored in the folder you selected")
