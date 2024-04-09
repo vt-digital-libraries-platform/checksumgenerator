@@ -4,7 +4,7 @@
 # Working Date: 04/08/2024
 # # Last Updated Date: 04/9/2024 
 # Updated Date: 04/9/2024 - Updating the Algorium SHA1 because the program only works with MD5 and SHA1
-# Updated Date: 04/09/2024 - Added a progress bar to larger collections that have alot of files 
+# Updated Date: 04/09/2024 - Added a progress bar for larger collections 
 #
 
 import os
