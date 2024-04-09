@@ -1,6 +1,6 @@
 # Checksum Generation and File Information Retrieval
 # Overview
-This Python script is designed to generate checksums (SHA1 and MD5) for files within a specified directory. Additionally, it retrieves various file information such as filename, file path, file size, file extension, and creation date. The primary use case is to prepare files for ingestion into a Digital Library by ensuring data integrity through checksum verification.
+This Python script is designed to generate checksums (SHA1 and MD5) for digital objects within a specified directory. Additionally, it retrieves various file information such as filename, file path, file size, file extension, and creation date. The primary use case is to prepare files for ingestion into a Digital Library by ensuring data integrity through checksum verification.
 
 # Requirements
   Python 3.x  
@@ -13,8 +13,4 @@ This Python script is designed to generate checksums (SHA1 and MD5) for files wi
 - Navigate to the directory containing the checksum_generator.py script.
 - Execute the script by running the command: python checksum_generator.py.
 # Instructions
-Upon execution of the program, the user will be prompted to select a folder containing the files for which you want to generate checksums.
-Once the folder is selected, the program will also prompt you to select a fill symbol but you can click enter to bypass this in the program.(Default is empty character '')  Next the program will begin processing the files.
-During this process a progress bar will be displayed to indicate the status of the operation. 
-After the program has completed then the checksums and file information will be stored in a CSV file named checksumsha1.csv within the folder the user selected.
-Once the program has completed you will receive a completion message.
+Upon running the program, the user will be prompted to choose a folder containing the digital objects for which checksum information is required. After selecting the folder, the program will offer the option to select a fill symbol; the user can skip this by pressing the enter key. Subsequently, the program will commence processing the files, displaying a progress bar to indicate the operation's status. Upon completion, the checksums and file information will be saved in a CSV file named checksumsha1.csv within the selected folder. Finally, a completion message will be displayed.
