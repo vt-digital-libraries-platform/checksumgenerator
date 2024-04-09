@@ -1,6 +1,6 @@
 # Checksum Generation and File Information Retrieval
 # Overview
-This Python script is designed to generate checksums (SHA1 and MD5) for digital objects within a specified directory. Additionally, it retrieves various file information such as filename, file path, file size, file extension, and creation date. The primary use case is to prepare files for ingestion into a Digital Library by ensuring data integrity through checksum verification.
+The Python script is designed to generate checksums (SHA1 and MD5) for digital objects within a specified directory. Additionally, it retrieves various file information such as filename, file path, file size, file extension, and creation date. The primary use case is to prepare files for ingestion into a Digital Library by ensuring data integrity through checksum verification.  Also included in this repository is the checksum.go script for users that want to run this process in Go.
 
 # Requirements
   Python 3.x  
