@@ -71,7 +71,7 @@ if __name__ == "__main__":
     root.withdraw()  # Hide the main window
 
     # Allow user to select a directory and store the selected path
-    root_folder = filedialog.askdirectory(title="Select the folder path where you need digital objects virus scanned and checksum")
+    root_folder = filedialog.askdirectory(title="Select the folder path where you want your digital objects to undergo checksum calculation.")
     
 
 
