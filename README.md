@@ -1,2 +1,2 @@
 # CheckSumGenerator
-This checksum program was written in python.  The program prompts the user a source folder of the images that need to be checksummed for ingestion into the Digital Library. 
+This Python program, designed for calculating checksums, prompts the user to choose a source folder containing all the images requiring checksum generation before they are ingested into the Digital Library. 
