@@ -43,7 +43,7 @@ def progress_bar(iterable, prefix='', suffix='', length=50, fill='', print_end="
 def main(root_folder, fill='#'):
     output_csv = os.path.join(root_folder, 'checksumsha1.csv')
     with open(output_csv, 'w', newline='') as csvfile:
-        fieldnames = ['Filename', 'File Path', 'SHA1 Hash', 'MD5 Hash', 'File Size', 'File Extension', 'Created Date']
+        fieldnames = ['CollectionItemName', 'CollectionRelativePath', 'SHA1', 'MD5', 'FileSize', 'FileExtension', 'CreatedDate']
         writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
         writer.writeheader()
 
