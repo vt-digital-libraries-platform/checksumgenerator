@@ -5,22 +5,30 @@
 # # Last Updated Date: 04/9/2024 
 # Updated Date: 04/9/2024 - Updating the Algorium SHA1 because the program only works with MD5 and SHA1
 # Updated Date: 04/09/2024 - Added a progress bar for larger collections 
+# Updated Date 04/23/2025 - Updated the Calcuate hash was having a hard time with bites/bytes and slowing down the whole process
+# - continued -- also added an iteration section to do a count once of all items then iterate over the items to get individual sha1 and md5 values
 #
-
+#
 import os
 import hashlib
 import csv
 from datetime import datetime
+CHUNK_SIZE = 65536
 
 def calculate_hashes(file_path):
-    sha1 = hashlib.sha1()
-    md5 = hashlib.md5()
-    with open(file_path, 'rb') as f:
-        while chunk := f.read(4096):
+  if not os.path.isfile(file_path):
+        raise FileNotFoundError(f"File not found: {file_path}")
+        sha1 = hashlib.sha1()
+        md5 = hashlib.md5()
+        with open(file_path, 'rb') as f:
+            chunk = f.read(CHUNK_SIZE)
+        while chunk:
             sha1.update(chunk)
             md5.update(chunk)
-    return sha1.hexdigest(), md5.hexdigest()
-
+            chunk = f.read(CHUNK_SIZE)
+            return sha1.hexdigest(), md5.hexdigest()
+ # Added an iteration file to improve speed so to not count the data twice.
+ #
 def get_file_info(file_path):
     file_name = os.path.basename(file_path)
     file_size = os.path.getsize(file_path)
@@ -40,28 +48,6 @@ def progress_bar(iterable, prefix='', suffix='', length=50, fill='', print_end="
             print(f'{prefix} {bar} {i+1}/{total} {suffix}', end=print_end)
     return show_progress_bar
 
-def main(root_folder, fill='#'):
-    output_csv = os.path.join(root_folder, 'checksumsha1.csv')
-    with open(output_csv, 'w', newline='') as csvfile:
-        fieldnames = ['CollectionItemName', 'CollectionRelativePath', 'SHA1', 'MD5', 'FileSize', 'FileExtension', 'CreatedDate']
-        writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
-        writer.writeheader()
-
-        # Get total number of files for progress bar to work and print out the progress bar
-        total_files = sum(len(files) for _, _, files in os.walk(root_folder))
-        progress_callback = progress_bar(range(total_files), prefix='Processing files', suffix='', length=50, fill=fill, use_color=False, print_end="\r\n")
-
-        file_count = 0
-        for root, dirs, files in os.walk(root_folder):
-            for file in files:
-                file_path = os.path.join(root, file)
-                sha1_hash, md5_hash = calculate_hashes(file_path)
-                filename, filepath, filesize, file_extension, created_date = get_file_info(file_path)
-                writer.writerow({'Filename': filename, 'File Path': filepath, 'SHA1 Hash': sha1_hash, 'MD5 Hash': md5_hash,
-                                 'File Size': filesize, 'File Extension': file_extension, 'Created Date': created_date})
-                file_count += 1
-                progress_callback(file_count)
-
 if __name__ == "__main__":
     import tkinter as tk
     from tkinter import filedialog
@@ -72,7 +58,29 @@ if __name__ == "__main__":
 
     # Allow user to select a directory and store the selected path
     root_folder = filedialog.askdirectory(title="Select the folder path where you want your digital objects to undergo checksum calculation.")
-    
+   def main(root_folder, fill='#'):
+    output_csv = os.path.join(root_folder, 'checksumsha1.csv')
+    files = list(iter_files(root_folder))  # only once
+    total_files = len(files)
+    progress_callback = progress_bar(range(total_files), prefix='Processing files', suffix='', length=50, fill=fill, use_color=False, print_end="\r\n")
+
+    with open(output_csv, 'w', newline='') as csvfile:
+        fieldnames = ['Filename', 'FilePath', 'SHA1_Hash', 'MD5_Hash', 'FileSize', 'FileExtension', 'CreatedDate']
+        writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
+        writer.writeheader()
+
+        for i, file_path in enumerate(files):
+            sha1_hash= calculate_hashes(file_path)
+            md5_hash = calculate_hashes(file_path)
+            filename, filepath, filesize, file_extension, created_date = get_file_info(file_path)
+            writer.writerow({'Filename': filename, 'FilePath': filepath, 'SHA1_Hash': sha1_hash, 'MD5_Hash': md5_hash,
+                             'FileSize': filesize, 'FileExtension': file_extension, 'CreatedDate': created_date})
+            progress_callback(i)
+
+def iter_files(root_folder):
+    for root, _, files in os.walk(root_folder):
+        for file in files:
+            yield os.path.join(root, file)  
 
 
     # If user cancels the selection, then exit the program and let the user know they need to select a folder
