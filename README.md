@@ -12,5 +12,7 @@ The Python script is designed to generate checksums (SHA1 and MD5) for digital o
 - Open a terminal or command prompt.
 - Navigate to the directory containing the checksum_generator.py script.
 - Execute the script by running the command: python checksum_generator.py.
+- This code will generate a checksumsha1.csv with the following column headers:
+- fieldnames = ['Filename', 'FilePath', 'SHA1_Hash', 'MD5_Hash', 'FileSize', 'FileExtension', 'CreatedDate']
 # Instructions
 Upon running the program, the user will be prompted to choose a folder containing the digital objects for which checksum information is required. After selecting the folder, the program will offer the option to select a fill symbol; the user can skip this by pressing the enter key. Subsequently, the program will commence processing the files, displaying a progress bar to indicate the operation's status. Upon completion, the checksums and file information will be saved in a CSV file named checksumsha1.csv within the selected folder. Finally, a completion message will be displayed.
